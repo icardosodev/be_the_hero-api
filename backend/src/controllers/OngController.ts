@@ -22,6 +22,6 @@ export default {
       uf
     });
 
-    return response.status(201).json(id);
+    return response.json(id);
   }
 }
