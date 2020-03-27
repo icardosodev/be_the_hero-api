@@ -1,6 +1,6 @@
-import crypto from 'crypto';
 import { Request, Response } from 'express';
 import connection from '../database/connection';
+import generateUniqueId from '../utils/generateUniqueId';
 
 export default {
   async index(request: Request, response: Response) {
@@ -11,7 +11,7 @@ export default {
   async store(request: Request, response: Response) {
     const { name, email, whatsapp, city, uf } = request.body;
 
-    const id = crypto.randomBytes(4).toString('HEX');
+    const id = generateUniqueId();
 
     await connection('ongs').insert({
       id,
@@ -22,6 +22,6 @@ export default {
       uf
     });
 
-    return response.json(id);
+    return response.status(201).json({ id });
   }
 }
